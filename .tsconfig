@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "dist",
+    "sourceMap": true
+  },
+  "files": [
+    "index.ts",
+    "libs/example.ts",
+    "libs/exampleController.ts",
+    "tests/test.example.ts",
+    "tests/test.exampleController.ts",
+    "tests/test.api.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
