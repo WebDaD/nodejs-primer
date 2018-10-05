@@ -1,0 +1,9 @@
+{
+  "port": 4000,
+  "database": {
+    "user": "db-user",
+    "password": "db-user-pwd",
+    "database": "db-name",
+    "host": "db-host"
+  }
+}

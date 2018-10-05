@@ -1,6 +1,0 @@
-@startuml
-package "Server" {
-[index.js] <-- [lib/exampleController]
-}
-() user --> () "index.js"
-@enduml

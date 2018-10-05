@@ -1,39 +1,42 @@
 {
-  "name": "nodejs-primer",
+  "name": "weekreport-config",
   "version": "1.0.0",
-  "description": "This is a primer. In this description add a short description of the project",
-  "main": "index.js",
+  "description": "Config Service für WeekReport",
+  "main": "app.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- tests/*.js -R mochawesome && cp -a mochawesome-report/. dist/public/mochawesome-report/ && cp -a coverage/. dist/public/coverage/",
-    "lint": "standard \"index.js\" \"libs/*.js\"",
-    "raml":"raml2html docs/api.raml > docs/api.html",
-    "jsdoc":"jsdoc lib/* index.js -d docs/jsdoc/",
-    "diagrams":"puml generate docs/classes.puml -o docs/classes.png && puml generate docs/components.puml -o docs/components.png",
-    "all":"npm run lint && build && npm run test && npm run raml && npm run jsdoc && npm run diagrams",
-    "build":"tsc"
+    "build": "sh build.sh",
+    "build:server": "tsc",
+    "jsdoc": "jsdoc dist/server/ -r -c jsdoc.json -d dist/docs/jsdoc/",
+    "lint": "standard /dist/server",
+    "test": "istanbul cover _mocha -- dist/server/test/**/*.js -R mochawesome",
+    "readme": "markdown README.md --flavor gfm --title README > dist/docs/index.html",
+    "posttest": "rsync --remove-source-files -av --progress ./coverage ./dist/docs/ && rm -Rf ./coverage  && rsync --remove-source-files -av --progress ./mochawesome-report ./dist/docs/ && rm -Rf ./mochawesome-report",
+    "complete": "npm run build && npm run lint && npm run jsdoc && npm run test && npm run readme && npm run posttest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://TFS"
-  },
-  "author": "Name",
+  "author": "Dominik Sigmund",
   "license": "Unlicense",
   "dependencies": {
-    "jsonfile": "*",
-    "express": "*",
-    "http-status": "*"
-  },
-  "devDependencies": {
-    "ip": "*",
-    "rimraf": "*",
-    "superagent": "^3.6.1",
-    "@types/chai": "^4.1.0",
-    "@types/mocha": "^2.2.46",
+    "@types/body-parser": "^1.17.0",
+    "@types/chai": "^4.1.3",
+    "@types/express": "^4.16.0",
+    "@types/mocha": "^5.2.1",
+    "@types/mysql": "^2.15.5",
+    "@types/superagent": "^3.8.2",
+    "body-parser": "^1.18.3",
     "chai": "^4.1.2",
+    "express": "^4.16.3",
     "istanbul": "^0.4.5",
     "jsdoc": "^3.5.5",
-    "mocha": "^4.1.0",
-    "mochawesome": "^3.0.1",
-    "typescript": "^2.6.2"
+    "mocha": "^5.2.0",
+    "mochawesome": "^3.0.2",
+    "mysql": "^2.15.0",
+    "node-mysql-importer": "0.0.10",
+    "superagent": "^3.8.3",
+    "typescript": "^2.9.1"
+  },
+  "standard": {
+    "ignore": [
+      "/dist/server/node_modules/**/*.js"
+    ]
   }
 }
