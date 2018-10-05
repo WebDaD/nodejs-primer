@@ -13,7 +13,7 @@ Kann einfach erweitert werden.
 Hier die Links:
 
 * [UnitTests](mochawesome-report/mochawesome.html)
-* [CodeCoverage](coverage/lcov-report/)
+* [CodeCoverage](coverage/)
 
 
 ## Developer

@@ -8,7 +8,7 @@
     "build:server": "tsc",
     "jsdoc": "jsdoc dist/server/ -r -c jsdoc.json -d dist/docs/jsdoc/",
     "lint": "standard /dist/server",
-    "test": "istanbul cover _mocha -- dist/server/test/**/*.js -R mochawesome",
+    "test": "nyc --reporter=html --reporter=text mocha -- dist/server/test/**/*.js -R mochawesome",
     "readme": "markdown README.md --flavor gfm --title README > dist/docs/index.html",
     "posttest": "rsync --remove-source-files -av --progress ./coverage ./dist/docs/ && rm -Rf ./coverage  && rsync --remove-source-files -av --progress ./mochawesome-report ./dist/docs/ && rm -Rf ./mochawesome-report",
     "complete": "npm run build && npm run lint && npm run jsdoc && npm run test && npm run readme && npm run posttest"
