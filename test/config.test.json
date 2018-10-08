@@ -1,9 +1,9 @@
 {
   "port": 40000,
   "database": {
-    "user": "wrtest",
-    "password": "wrtest",
-    "database": "wrtest",
+    "user": "test",
+    "password": "test",
+    "database": "test",
     "host": "localhost"
   }
 }

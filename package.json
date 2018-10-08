@@ -5,10 +5,11 @@
   "main": "app.js",
   "scripts": {
     "build": "sh build.sh",
-    "build:server": "tsc",
-    "jsdoc": "jsdoc dist/server/ -r -c jsdoc.json -d dist/docs/jsdoc/",
-    "lint": "standard /dist/server",
-    "test": "nyc --reporter=html --reporter=text mocha -- dist/server/test/**/*.js -R mochawesome",
+    "build:js": "tsc",
+    "jsdoc": "jsdoc dist/ -r -c jsdoc.json -d dist/docs/jsdoc/",
+    "lint": "standard /dist",
+    "test": "nyc --reporter=html --reporter=text-summary mocha -R mochawesome -- dist/test/**/*.js",
+    "mutation": "stryker run && rsync --remove-source-files -av --progress ./reports/ ./dist/docs/ && rm -Rf ./reports",
     "readme": "markdown README.md --flavor gfm --title README > dist/docs/index.html",
     "posttest": "rsync --remove-source-files -av --progress ./coverage ./dist/docs/ && rm -Rf ./coverage  && rsync --remove-source-files -av --progress ./mochawesome-report ./dist/docs/ && rm -Rf ./mochawesome-report",
     "complete": "npm run build && npm run lint && npm run jsdoc && npm run test && npm run readme && npm run posttest"
@@ -30,7 +31,7 @@
     "mocha": "^5.2.0",
     "mochawesome": "^3.0.2",
     "mysql": "^2.15.0",
-    "node-mysql-importer": "0.0.10",
+    "mysql-import": "^1.0.9",
     "superagent": "^3.8.3",
     "typescript": "^2.9.1"
   },
@@ -38,5 +39,13 @@
     "ignore": [
       "/dist/server/node_modules/**/*.js"
     ]
+  },
+  "devDependencies": {
+    "stryker": "^0.29.5",
+    "stryker-api": "^0.21.2",
+    "stryker-html-reporter": "^0.16.4",
+    "stryker-javascript-mutator": "^0.11.0",
+    "stryker-mocha-framework": "^0.12.3",
+    "stryker-mocha-runner": "^0.14.3"
   }
 }

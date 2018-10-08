@@ -4,7 +4,7 @@ import * as mysql from 'mysql'
 import * as superagent from 'superagent'
 import * as child_process from 'child_process'
 import * as fs from 'fs'
-const importer = require('node-mysql-importer')
+const importer = require('mysql-import')
 let testConfig = require('../config.test.json')
 
 let object = {
@@ -28,14 +28,13 @@ describe('Item : API', function () {
         console.log(err)
         done(err)
       } else {
-        importer.config(testConfig.database)
-        importer.importSQL(__dirname + '/../test.database.sql').then( function() {
+        importer.config(testConfig.database).import(__dirname + '/../test.database.sql').then( function() {
           mysqlConnection.end()
             server = child_process.spawn('node', ['dist/app.js', './test/config.test.json'])
             baseUri = 'http://localhost:' + testConfig.port
             setTimeout(function () {
               done()
-            }, 1000)
+            }, 1500)
         }).catch( function(err:any) {
           console.log(err)
           done(err)
